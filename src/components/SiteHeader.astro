@@ -1,0 +1,38 @@
+---
+import { chapters } from "../data/book";
+
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const home = import.meta.env.BASE_URL.replace(/\/$/, "") || "/";
+const isHome = path === home || path === "";
+---
+
+<header class="border-b border-rule bg-paper/80 backdrop-blur-md">
+  <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-3">
+    <a href={import.meta.env.BASE_URL} class="group flex items-center gap-3 no-underline">
+      <svg viewBox="0 0 36 36" class="h-8 w-8" aria-hidden="true">
+        <rect x="3" y="3" width="30" height="30" rx="8" fill="none" stroke="#c45c26" stroke-width="2.2"></rect>
+        <circle cx="18" cy="18" r="5" fill="#f6e3c4" stroke="#c9842a" stroke-width="1.6"></circle>
+        <path d="M8 18h5M23 18h5M18 8v5M18 23v5" stroke="#1f6b68" stroke-width="1.6"></path>
+      </svg>
+      <span class="leading-tight">
+        <span class="block font-sans text-[10px] font-semibold uppercase tracking-[0.22em] text-copper-deep">
+          Interactive ebook
+        </span>
+        <span class="block font-display text-lg text-ink group-hover:text-copper-deep">The Harness Era</span>
+      </span>
+    </a>
+    <nav class="flex items-center gap-4 font-sans text-sm">
+      <a
+        href={import.meta.env.BASE_URL}
+        class={`${isHome ? "text-copper-deep" : "text-ink-soft hover:text-ink"}`}>Contents</a
+      >
+      {
+        isHome && (
+          <a href={`${import.meta.env.BASE_URL}chapters/${chapters[0].slug}`} class="rounded-full bg-ink px-3 py-1.5 text-paper hover:bg-copper-deep">
+            Start reading
+          </a>
+        )
+      }
+    </nav>
+  </div>
+</header>

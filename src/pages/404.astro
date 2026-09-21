@@ -1,0 +1,16 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+---
+
+<BaseLayout title="Missing page · The Harness Era">
+  <SiteHeader />
+  <main class="mx-auto max-w-2xl px-5 py-24">
+    <p class="font-sans text-[11px] uppercase tracking-[0.2em] text-copper-deep">404</p>
+    <h1 class="mt-2 font-display text-4xl">This page is outside the harness.</h1>
+    <p class="mt-3 text-ink-soft">No route fired. Unlike an expert system, we can send you home.</p>
+    <a href={import.meta.env.BASE_URL} class="mt-6 inline-block rounded-full bg-ink px-4 py-2 font-sans text-sm text-paper">Back to contents</a>
+  </main>
+  <SiteFooter />
+</BaseLayout>

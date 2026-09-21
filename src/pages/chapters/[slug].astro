@@ -1,0 +1,30 @@
+---
+import { getCollection } from "astro:content";
+import { marked } from "marked";
+import ChapterLayout from "../../layouts/ChapterLayout.astro";
+import { ComicStrip } from "../../components/ComicStrip";
+import { Dialogue } from "../../components/Dialogue";
+import { DiagramIsland } from "../../components/diagrams/DiagramIsland";
+import { parseChapter } from "../../lib/parseChapter";
+
+marked.setOptions({ gfm: true });
+
+export async function getStaticPaths() {
+  const entries = await getCollection("chapters");
+  return entries.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const parsed = parseChapter(entry.body);
+const deepDiveHtml = marked.parse(parsed.deepDive, { async: false }) as string;
+---
+
+<ChapterLayout slug={entry.data.slug}>
+  <ComicStrip title={parsed.comic.title} panels={parsed.comic.panels} />
+  <Dialogue topic={parsed.dialogue.topic} beats={parsed.dialogue.beats} recap={parsed.dialogue.recap} />
+  <DiagramIsland client:load id={entry.data.diagramId} guide={parsed.diagramGuide} />
+  <div class="chapter-deep-dive" set:html={deepDiveHtml} />
+</ChapterLayout>

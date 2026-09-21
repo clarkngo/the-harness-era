@@ -1,0 +1,377 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", "Times New Roman", serif;
+  --font-serif: "Source Serif 4", Georgia, serif;
+  --font-sans: "Figtree", "Helvetica Neue", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --color-ink: #1c1612;
+  --color-ink-soft: #4a4036;
+  --color-paper: #f3ece1;
+  --color-paper-2: #e7dccb;
+  --color-paper-3: #f7f2ea;
+  --color-copper: #c45c26;
+  --color-copper-deep: #8a3a14;
+  --color-patina: #1f6b68;
+  --color-patina-2: #154f4d;
+  --color-steel: #355065;
+  --color-amber: #c9842a;
+  --color-danger: #b42318;
+  --color-ok: #2f6f3e;
+  --color-rule: #d2c4ae;
+  --color-alex: #c9842a;
+  --color-elena: #1f6b68;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  text-rendering: optimizeLegibility;
+}
+
+body::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.35;
+  background-image:
+    radial-gradient(circle at 18% -10%, rgba(196, 92, 38, 0.12), transparent 36%),
+    radial-gradient(circle at 110% 8%, rgba(31, 107, 104, 0.1), transparent 32%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+}
+
+#root-shell {
+  position: relative;
+  z-index: 1;
+}
+
+::selection {
+  background: rgba(196, 92, 38, 0.22);
+}
+
+.prose-book {
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: var(--color-ink-soft);
+}
+
+.prose-book h2,
+.prose-book h3 {
+  font-family: var(--font-display);
+  color: var(--color-ink);
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+.prose-book h2 {
+  font-size: 1.85rem;
+  margin: 2.4rem 0 0.9rem;
+}
+
+.prose-book h3 {
+  font-size: 1.28rem;
+  margin: 1.8rem 0 0.7rem;
+}
+
+.prose-book p {
+  margin: 0 0 1.15rem;
+}
+
+.prose-book strong {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.prose-book a {
+  color: var(--color-copper-deep);
+  text-underline-offset: 3px;
+}
+
+.prose-book ul,
+.prose-book ol {
+  margin: 0 0 1.2rem 1.2rem;
+}
+
+.prose-book li {
+  margin: 0.35rem 0;
+}
+
+.prose-book code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: rgba(28, 22, 18, 0.06);
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.3rem;
+}
+
+.prose-book pre {
+  margin: 1.25rem 0 1.5rem;
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  background: #241c16;
+  color: #f3ece1;
+  border-radius: 0.9rem;
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+.prose-book pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.prose-book table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.2rem 0 1.6rem;
+  font-size: 0.95rem;
+}
+
+.prose-book th,
+.prose-book td {
+  border-bottom: 1px solid var(--color-rule);
+  padding: 0.6rem 0.5rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.prose-book th {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+.prose-book blockquote {
+  margin: 1.4rem 0;
+  padding: 0.2rem 0 0.2rem 1rem;
+  border-left: 3px solid var(--color-copper);
+  color: var(--color-ink);
+  font-style: italic;
+}
+
+.node-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.node-id {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+}
+
+.diagram-plate {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(231, 220, 203, 0.4)),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 23px,
+      rgba(53, 80, 101, 0.05) 24px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 23px,
+      rgba(53, 80, 101, 0.05) 24px
+    );
+}
+
+.diagram-node {
+  transition: opacity 0.18s ease;
+}
+
+.diagram-node.is-dim {
+  opacity: 0.34;
+}
+
+.diagram-node.is-active .diagram-node-rect {
+  stroke-width: 2.8;
+  filter: drop-shadow(0 0 7px rgba(196, 92, 38, 0.4));
+}
+
+.diagram-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  padding: 0.85rem;
+  overflow: auto;
+  background: rgba(28, 22, 18, 0.58);
+}
+
+.diagram-lightbox-panel {
+  position: relative;
+  margin: auto;
+  width: min(1680px, 100%);
+  max-height: calc(100vh - 1.7rem);
+  overflow: auto;
+  padding: 1.15rem 1.15rem 1.4rem;
+  border-radius: 1.4rem;
+  background: var(--color-paper);
+  box-shadow: 0 24px 80px rgba(28, 22, 18, 0.28);
+}
+
+.diagram-guide.is-expanded .diagram-plate svg {
+  min-width: 0;
+  width: 100%;
+  height: auto;
+  max-height: min(72vh, 860px);
+}
+
+@media (min-width: 900px) {
+  .diagram-lightbox {
+    padding: 1.25rem;
+  }
+
+  .diagram-lightbox-panel {
+    padding: 1.4rem 1.6rem 1.6rem;
+  }
+}
+
+.speech {
+  background: white;
+  border: 1.5px solid var(--color-ink);
+}
+
+.comic-page {
+  display: grid;
+  gap: 4px;
+  padding: 4px;
+  background: var(--color-ink);
+  border: 3px solid var(--color-ink);
+  box-shadow: 8px 8px 0 rgba(28, 22, 18, 0.12);
+}
+
+@media (min-width: 640px) {
+  .comic-page {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.comic-panel {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(255, 248, 238, 0.9), transparent 46%),
+    linear-gradient(180deg, #fff8ee, #ead9c0);
+}
+
+.comic-stage {
+  position: relative;
+  min-height: 268px;
+  flex: 1;
+  overflow: hidden;
+  padding: 10px 10px 0;
+}
+
+.comic-loc {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  padding: 3px 7px;
+  overflow: hidden;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.comic-balloon {
+  position: relative;
+  z-index: 2;
+  max-width: 72%;
+  padding: 8px 10px;
+  background: white;
+  border: 2.2px solid var(--color-ink);
+  box-shadow: 2px 2px 0 var(--color-ink);
+}
+
+.comic-balloon.from-right {
+  border-radius: 16px 16px 5px 16px;
+}
+
+.comic-balloon.from-left {
+  border-radius: 16px 16px 16px 5px;
+}
+
+.comic-balloon p {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-ink);
+}
+
+.comic-prop {
+  position: absolute;
+  right: 6px;
+  bottom: 42px;
+  z-index: 0;
+  height: 7.4rem;
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.comic-actor {
+  position: absolute;
+  bottom: -6px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.comic-actor.actor-right {
+  right: 2px;
+}
+
+.comic-actor.actor-left {
+  left: 8px;
+  bottom: 8px;
+}
+
+.comic-caption {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  padding: 8px 10px;
+  background: var(--color-ink);
+  color: #f3ece1;
+  font-family: var(--font-serif);
+  font-size: 0.86rem;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.prose-book .comic-balloon p,
+.prose-book .comic-caption {
+  margin: 0;
+}
+
+.prose-book .comic-caption {
+  color: #f3ece1;
+}
+
+.prose-book .comic-balloon p {
+  color: var(--color-ink);
+}
