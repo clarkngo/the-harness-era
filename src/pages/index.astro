@@ -1,0 +1,123 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { chapters, phases } from "../data/book";
+
+const phaseList = [1, 2, 3, 4] as const;
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="The Harness Era">
+  <SiteHeader />
+  <main>
+    <section class="mx-auto max-w-6xl px-5 pb-8 pt-12">
+      <p class="font-sans text-[11px] font-semibold uppercase tracking-[0.28em] text-copper-deep">
+        A beginner-friendly tour of models, tools, and the software around them
+      </p>
+      <h1 class="mt-3 max-w-4xl font-display text-5xl leading-[1.05] text-ink sm:text-7xl">
+        The Harness Era
+      </h1>
+      <p class="mt-5 max-w-2xl font-serif text-xl leading-8 text-ink-soft">
+        You already know the chatbot. This book is about everything it cannot do alone — remember,
+        click, stop, and stay safe — and the <em>harness</em> of software that makes an agent out of a
+        model.
+      </p>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-5">
+      <div class="grid overflow-hidden rounded-[1.6rem] border border-ink bg-ink text-paper md:grid-cols-[1.1fr_1.4fr_1.3fr]">
+        <div class="border-b border-white/10 p-6 md:border-b-0 md:border-r">
+          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-amber">MODEL</p>
+          <p class="mt-3 font-display text-3xl">The chatbot brain</p>
+          <p class="mt-2 text-sm text-paper-2">It predicts the next word. It does not remember yesterday, and it cannot click a button unless we let it.</p>
+        </div>
+        <div class="border-b border-white/10 p-6 md:border-b-0 md:border-r">
+          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-patina">HARNESS</p>
+          <p class="mt-3 font-display text-3xl">The software around it</p>
+          <p class="mt-2 text-sm text-paper-2">
+            Memory, tools, a sandbox to try things in, and brakes so a loop cannot run all night.
+          </p>
+        </div>
+        <div class="bg-copper-deep p-6">
+          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-paper">AGENT</p>
+          <p class="mt-3 font-display text-3xl">Model + Harness</p>
+          <p class="mt-2 text-sm text-paper">
+            Not a smarter prompt. A product that can act — and can be stopped.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto mt-12 max-w-6xl px-5">
+      <div class="rounded-[1.4rem] border border-rule bg-paper-3 p-6 sm:p-8">
+        <p class="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-copper-deep">Who this is for</p>
+        <h2 class="mt-1 font-display text-2xl text-ink">You can start from a chatbot. We will walk the rest.</h2>
+        <p class="mt-3 max-w-3xl text-ink-soft">
+          Meet Alex, a junior engineer who trusts a good prompt, and Elena, an architect who has been
+          paged at 2 a.m. Each chapter opens with a short comic, then their argument, then a diagram,
+          then a slower explanation. Skip the math on first read if you want. The pictures carry the plot.
+        </p>
+      </div>
+    </section>
+
+    <section class="mx-auto mt-16 max-w-6xl px-5">
+      <h2 class="font-display text-3xl text-ink">Four phases</h2>
+      <p class="mt-2 max-w-2xl text-ink-soft">
+        The story is not only “the AI got smarter.” It is: first it followed checklists, then it learned
+        patterns, then it talked, then it used tools, then it needed a harness.
+      </p>
+      <div class="mt-6 grid gap-4 md:grid-cols-2">
+        {
+          phaseList.map((id) => {
+            const phase = phases[id];
+            const kids = chapters.filter((chapter) => chapter.phase === id);
+            return (
+              <article class="rounded-[1.3rem] border border-rule bg-paper-3 p-5">
+                <p class="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-copper-deep">
+                  {phase.kicker} · {phase.span}
+                </p>
+                <h3 class="mt-1 font-display text-2xl">{phase.title}</h3>
+                <ol class="mt-3 space-y-1 font-sans text-sm">
+                  {kids.map((chapter) => (
+                    <li>
+                      <a href={`${base}chapters/${chapter.slug}`} class="text-ink hover:text-copper-deep">
+                        {chapter.order}. {chapter.title}
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </article>
+            );
+          })
+        }
+      </div>
+    </section>
+
+    <section class="mx-auto mt-16 max-w-6xl px-5 pb-8">
+      <div class="flex items-end justify-between gap-4">
+        <h2 class="font-display text-3xl text-ink">Contents</h2>
+        <p class="font-sans text-xs uppercase tracking-[0.16em] text-ink-soft">Nine chapters · nine master diagrams</p>
+      </div>
+      <ol class="mt-6 divide-y divide-rule overflow-hidden rounded-[1.4rem] border border-rule bg-paper-3">
+        {
+          chapters.map((chapter) => (
+            <li>
+              <a href={`${base}chapters/${chapter.slug}`} class="grid gap-2 px-5 py-4 no-underline hover:bg-white/50 sm:grid-cols-[4rem_1fr_auto] sm:items-center">
+                <span class="font-mono text-sm text-copper-deep">0{chapter.order}</span>
+                <span>
+                  <span class="block font-display text-xl text-ink">{chapter.title}</span>
+                  <span class="block text-sm text-ink-soft">{chapter.subtitle}</span>
+                </span>
+                <span class="font-sans text-xs uppercase tracking-[0.14em] text-ink-soft">
+                  Diagram {chapter.diagramId}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>

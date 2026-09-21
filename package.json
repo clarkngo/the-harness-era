@@ -1,0 +1,29 @@
+{
+  "name": "the-harness-era",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "export": "python3 tools/export-manuscript.py",
+    "export:epub": "python3 tools/export-manuscript.py --format epub",
+    "export:pdf": "python3 tools/export-manuscript.py --format pdf"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.4.0",
+    "astro": "^5.13.10",
+    "lucide-react": "^0.544.0",
+    "marked": "^15.0.12",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.13",
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
+    "tailwindcss": "^4.1.13",
+    "typescript": "^5.9.2"
+  }
+}
